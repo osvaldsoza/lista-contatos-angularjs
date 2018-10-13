@@ -1,0 +1,17 @@
+{
+  "name": "lista-contatos-angular",
+  "version": "1.0.0",
+  "description": "criacao de lista de contatos com angularjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "angular-http-server -p 9000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.7.4",
+    "angular-resource": "^1.7.5",
+    "bootstrap": "^3.3.7"
+  }
+}

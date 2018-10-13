@@ -1,0 +1,12 @@
+<div class="alert alert-danger" ng-show="contatoForm.nome.$error.required && contatoForm.$dirty">
+    <span>Preencha o campo Nome!</span>
+</div>
+<div class="alert alert-danger" ng-show="contatoForm.nome.$error.minlength">
+    <span>O campo Nome deve ter o mínimo de 5 caracteres!</span>
+</div>
+<div class="alert alert-danger" ng-show="contatoForm.telefone.$error.required && contatoForm.$dirty">
+    <span>Preencha o campo Telefone!</span>
+</div>
+<div class="alert alert-danger" ng-show="contatoForm.telefone.$error.pattern">
+    <span>O campo Telefone deve seguir o padrão '9'9999-9999!</span>
+</div>

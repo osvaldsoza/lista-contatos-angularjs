@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="appListaContatos">
+
+<head>
+	<meta charset="utf-8">
+	<title>Contatos</title>
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+
+	<script type="text/javascript" src="node_modules/angular/angular.js"></script>
+	<script type="text/javascript" src="node_modules/angular/angular-locale_pt-br.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/controllers/listaContatosCtrl.js"></script>
+	<script type="text/javascript" src="js/factorys/ContatoFactory.js"></script>
+	<script type="text/javascript" src="js/services/OperadoraService.js"></script>
+	<script type="text/javascript" src="js/value/configValue.js"></script>
+</head>
+
+<body ng-controller="listaContatosCtrl">
+	<div class="container">
+		<h3>{{app}}</h3>
+		<input type="text" ng-model="criterioDeBusca" class="form-group form-control" placeholder="O que você está procurando?">
+		<table ng-show="contatos.length > 0" class="table table-striped">
+			<thead>
+				<th></th>
+				<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
+				<th>Operadora</th>
+			</thead>
+			<tbody>
+				<tr ng-class="{selecionado : contato.selecionado}" ng-repeat="contato in contatos | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoOrdenacao">
+					<td><input type="checkbox" ng-model="contato.selecionado"></td>
+					<td>{{contato.nome}}</td>
+					<td>{{contato.telefone}}</td>
+					<td>{{contato.operadora.nome}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div ng-include="'validacaoCampos.html'"></div>
+		<form name="contatoForm">
+			<input class="form-group form-control" type="text" name="nome" placeholder="Nome" ng-model="contato.nome"
+			 ng-required=true ng-minlength="5">
+			<input class="form-group form-control" type="text" name="telefone" placeholder="Telefone" ng-model="contato.telefone"
+			 ng-required=true ng-pattern="/^\d{4,5}-\d{4}$/">
+			<select class="form-group form-control" ng-model="contato.operadora" ng-options="operadora.nome + ' -> ' + (operadora.preco | currency) +' por minuto' for operadora in operadoras">
+				<option value="">Seleciona uma operadora</option>
+			</select>
+			<button class="form-group btn btn-primary btn-block" ng-click="AdicionarContato(contato)" ng-disabled="contatoForm.$invalid">Salvar
+				Contato</button>
+			<button class="form-group btn btn-danger btn-block" ng-click="deletarContatos(contatos)" ng-show="isContatoSelecionado(contatos)">Deletar
+				Contatos</button>
+		</form>
+		<div ng-include="'footer.html'"></div>
+	</div>
+</body>
+
+</html>
