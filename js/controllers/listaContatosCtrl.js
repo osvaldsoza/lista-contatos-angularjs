@@ -1,4 +1,4 @@
-app.controller("listaContatosCtrl", function ($scope, contatoFactory, operadoraService) {
+appListaContatos.controller("listaContatosCtrl", function ($scope, contatoFactory, operadoraService, serialGenerator) {
   $scope.app = "Lista  de Contatos";
   $scope.dataHoje = new Date();
   $scope.contatos = [];
@@ -19,21 +19,16 @@ app.controller("listaContatosCtrl", function ($scope, contatoFactory, operadoraS
     }, function (err) {
       console.log(err);
     });
-  }
+  };
 
   $scope.AdicionarContato = function (contato) {
+    contato.serial = serialGenerator.generate();
     contatoFactory.saveContato(contato).then(function () {
       delete $scope.contato;
       $scope.contatoForm.$setPristine();
       carregarContatos();
     });
   };
-
-  // $scope.AdicionarContato = function (contato) {
-  //   $scope.contatos.push(angular.copy(contato));
-  //   delete $scope.contato;
-  //   $scope.contatoForm.$setPristine();
-  // };
 
   $scope.deletarContatos = function (contatos) {
     $scope.contatos = contatos.filter(function (contato) {

@@ -14,7 +14,11 @@
 	<script type="text/javascript" src="js/controllers/listaContatosCtrl.js"></script>
 	<script type="text/javascript" src="js/factorys/ContatoFactory.js"></script>
 	<script type="text/javascript" src="js/services/OperadoraService.js"></script>
+	<script type="text/javascript" src="js/provider/SerialGenerator.js"></script>
 	<script type="text/javascript" src="js/value/configValue.js"></script>
+	<script type="text/javascript" src="js/filters/FilterName.js"></script>
+	<script type="text/javascript" src="js/filters/FilterIniciais.js"></script>
+	<script type="text/javascript" src="js/filters/FilterAbre.js"></script>
 </head>
 
 <body ng-controller="listaContatosCtrl">
@@ -24,14 +28,18 @@
 		<table ng-show="contatos.length > 0" class="table table-striped">
 			<thead>
 				<th></th>
+				<th>Serial</th>
 				<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th>Inicias Nome</a></th>
 				<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
 				<th>Operadora</th>
 			</thead>
 			<tbody>
 				<tr ng-class="{selecionado : contato.selecionado}" ng-repeat="contato in contatos | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoOrdenacao">
 					<td><input type="checkbox" ng-model="contato.selecionado"></td>
-					<td>{{contato.nome}}</td>
+					<td>{{contato.serial | abre:5}}</td>
+					<td>{{contato.nome | filterName}}</td>
+					<td>{{contato.nome | filterIniciais}}</td>
 					<td>{{contato.telefone}}</td>
 					<td>{{contato.operadora.nome}}</td>
 				</tr>

@@ -1,1 +1,1 @@
-var app = angular.module("appListaContatos", []);
+var appListaContatos = angular.module("appListaContatos", []);

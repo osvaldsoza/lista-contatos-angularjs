@@ -1,4 +1,4 @@
-app.factory("contatoFactory", function($http, config){
+appListaContatos.factory("contatoFactory", function($http, config){
     var _getContatos = function(){
         return $http.get(config.baseURL + "/contatos");
     };
