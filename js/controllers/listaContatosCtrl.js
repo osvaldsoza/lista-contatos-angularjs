@@ -3,12 +3,15 @@ appListaContatos.controller("listaContatosCtrl", function ($scope, contatoFactor
   $scope.dataHoje = new Date();
   $scope.contatos = [];
   $scope.operadoras = [];
+  // $scope.contato = {
+  //   data: 1289786400000
+  // };
 
   var carregarContatos = function () {
     contatoFactory.getContatos().then(function (response) {
       $scope.contatos = response.data;
     }, function (err) {
-      console.log(err);
+      $scope.err = "Não foi possível carregar os contatos.";
     });
   };
 
@@ -17,7 +20,7 @@ appListaContatos.controller("listaContatosCtrl", function ($scope, contatoFactor
       $scope.operadoras = response.data;
       console.log($scope.operadoras)
     }, function (err) {
-      console.log(err);
+      $scope.err = "Não foi possível carregar as operadoras.";
     });
   };
 

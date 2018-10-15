@@ -19,11 +19,20 @@
 	<script type="text/javascript" src="js/filters/FilterName.js"></script>
 	<script type="text/javascript" src="js/filters/FilterIniciais.js"></script>
 	<script type="text/javascript" src="js/filters/FilterAbre.js"></script>
+	<script type="text/javascript" src="js/directives/uiAlertDirective.js"></script>
+	<script type="text/javascript" src="js/directives/uiDateDirective.js"></script>
 </head>
 
 <body ng-controller="listaContatosCtrl">
 	<div class="container">
 		<h3>{{app}}</h3>
+
+		<div ng-show="err">
+			<ui-alert info="Ops, aconteceu um problema!">
+				{{err}}
+			</ui-alert>
+		</div>
+
 		<input type="text" ng-model="criterioDeBusca" class="form-group form-control" placeholder="O que você está procurando?">
 		<table ng-show="contatos.length > 0" class="table table-striped">
 			<thead>
@@ -33,6 +42,7 @@
 				<th>Inicias Nome</a></th>
 				<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
 				<th>Operadora</th>
+				<th>Data</th>
 			</thead>
 			<tbody>
 				<tr ng-class="{selecionado : contato.selecionado}" ng-repeat="contato in contatos | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoOrdenacao">
@@ -42,6 +52,7 @@
 					<td>{{contato.nome | filterIniciais}}</td>
 					<td>{{contato.telefone}}</td>
 					<td>{{contato.operadora.nome}}</td>
+					<td>{{contato.data | date:"dd/MM/yyyy"}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -51,6 +62,9 @@
 			 ng-required=true ng-minlength="5">
 			<input class="form-group form-control" type="text" name="telefone" placeholder="Telefone" ng-model="contato.telefone"
 			 ng-required=true ng-pattern="/^\d{4,5}-\d{4}$/">
+			 <input class="form-group form-control" type="text" name="data" placeholder="Data" ng-model="contato.data"
+			 ui-date>
+			 {{contato.data}}
 			<select class="form-group form-control" ng-model="contato.operadora" ng-options="operadora.nome + ' -> ' + (operadora.preco | currency) +' por minuto' for operadora in operadoras">
 				<option value="">Seleciona uma operadora</option>
 			</select>
